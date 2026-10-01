@@ -7,9 +7,10 @@ They can be adjusted as the project evolves.
 ## Table of Contents
 
 1. [Branches](#branches)
-2. [Pull Requests](#pull-requests)
-3. [Branch Naming Conventions](#branch-naming-conventions)
-4. [Commit Naming Conventions](#commit-naming-conventions)
+2. [Issues](#issues)
+3. [Pull Requests](#pull-requests)
+4. [Branch Naming Conventions](#branch-naming-conventions)
+5. [Commit Naming Conventions](#commit-naming-conventions)
 
 ## Branches
 
@@ -24,6 +25,18 @@ dev
 └── feature/fix/refactor/etc. branches (branch from dev, merge back into dev)
 ```
 
+## Issues
+
+GitHub issues can be used to track features, bugs, decisions, and other
+significant pieces of work along with who is working on them.
+
+When working on an issue, assign yourself to it so others know who is working
+on it. Reference the issue in related pull request(s) so that the issue and
+its implementation can be clearly traced.
+
+Significant changes should generally have a corresponding issue, while
+small changes may not need one.
+
 ## Pull Requests
 
 1. Create a branch (e.g. `feature/user-adoption-dashboard`).
@@ -32,6 +45,7 @@ dev
    - Generally, commits should focus on individual pieces of work.
    - See [Commit Naming Conventions](#commit-naming-conventions).
 3. Open a pull request.
+   - Reference the related issue when applicable 
    - Fill out the PR template to make the changes easier to review.
    - Include what was changed and how it was tested.
    - Include screenshots/videos when they would be helpful.
