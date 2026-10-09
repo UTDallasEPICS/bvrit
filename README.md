@@ -26,6 +26,7 @@ PawGo uses a **MERN** stack.
 | Frontend build tool | Vite |
 | React component syntax | JavaScript XML (`.jsx`) |
 | Package manager | `npm` |
+| Linting | ESLint |
 
 ## Project Structure
 
