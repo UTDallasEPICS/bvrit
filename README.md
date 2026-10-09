@@ -14,9 +14,19 @@ The goal of this project is to provide PFA with a platform that will help them:
 PawGo uses a **MERN** stack.
 
 - **UI Framework**: [React](https://react.dev/learn)
-- **Backend Runtime**: [NodeJS](https://nodejs.org/en/about)
-- **Backend Framework**: [ExpressJS](https://expressjs.com/)
+- **Backend Runtime**: [Node.js](https://nodejs.org/en/about)
+- **Backend Framework**: [Express.js](https://expressjs.com/)
 - **Database**: [MongoDB](https://www.mongodb.com/docs)
+
+### Additional Language / Tooling
+
+| Category | Technology |
+| - | - |
+| Language | JavaScript |
+| Frontend build tool | Vite |
+| React component syntax | JavaScript XML (`.jsx`) |
+| Package manager | `npm` |
+| Linting | ESLint |
 
 ## Project Structure
 
