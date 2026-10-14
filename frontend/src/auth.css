@@ -1,0 +1,543 @@
+* {
+  box-sizing: border-box;
+}
+
+.auth-page {
+  min-height: 100vh;
+  background: #f8fafc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 20px;
+
+  font-family:
+    "Nunito",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* =========================
+   PAWGO LOGO
+========================= */
+
+.pawgo-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.pawgo-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paw-icon {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 12px;
+
+  background: #0ea5e9;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pawgo-text {
+  color: #172033;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+.pawgo-text span {
+  color: #0ea5e9;
+}
+
+.pawgo-logo-container p {
+  margin: 0;
+
+  font-size: 14px;
+  color: #475569;
+}
+
+/* =========================
+   AUTH CARD
+========================= */
+
+.auth-card {
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 2px 12px rgba(14, 165, 233, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.06);
+
+  padding: 36px;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.auth-heading {
+  margin-bottom: 24px;
+}
+
+.auth-heading h1 {
+  margin: 0 0 6px;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  color: #172033;
+}
+
+.auth-heading p {
+  margin: 0;
+
+  font-size: 14.5px;
+
+  line-height: 1.5;
+
+  color: #475569;
+}
+
+.signup-heading h1 {
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #172033;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+
+  padding: 0 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  color: #172033;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:focus,
+.input.focused {
+  border-color: #0ea5e9;
+
+  box-shadow:
+    0 0 0 3px #e0f2fe;
+}
+
+.input-wrapper .input {
+  padding-right: 46px;
+}
+
+.input-icon {
+  position: absolute;
+
+  right: 13px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #94a3b8;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.input-icon:hover {
+  color: #475569;
+}
+
+/* =========================
+   REMEMBER / FORGOT
+========================= */
+
+.remember-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.remember-label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  color: #475569;
+
+  font-weight: 500;
+}
+
+.remember-label input,
+.terms-label input {
+  width: 16px;
+  height: 16px;
+
+  accent-color: #0ea5e9;
+
+  cursor: pointer;
+}
+
+.forgot-button {
+  background: none;
+
+  border: none;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  color: #0369a1;
+
+  font-weight: 600;
+}
+
+.forgot-button:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.primary-button {
+  width: 100%;
+  height: 50px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #0ea5e9;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+
+  transition: background 0.15s;
+}
+
+.primary-button:hover {
+  background: #0369a1;
+}
+
+.primary-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 4px 0;
+}
+
+.divider div {
+  flex: 1;
+
+  height: 1px;
+
+  background: #e2e8f0;
+}
+
+.divider span {
+  font-size: 13px;
+
+  color: #94a3b8;
+
+  font-weight: 600;
+}
+
+/* =========================
+   GOOGLE BUTTON
+========================= */
+
+.google-button {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  background: #ffffff;
+
+  color: #172033;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.15s;
+}
+
+.google-button:hover {
+  background: #f8fafc;
+}
+
+/* =========================
+   SWITCH LOGIN / SIGNUP
+========================= */
+
+.switch-text {
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #475569;
+
+  margin: 4px 0 0;
+}
+
+.switch-text button {
+  background: none;
+
+  border: none;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  color: #0369a1;
+
+  font-weight: 700;
+
+  font-family: inherit;
+
+  font-size: 14px;
+}
+
+.switch-text button:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   PASSWORD STRENGTH
+========================= */
+
+.password-strength {
+  margin-top: 6px;
+}
+
+.strength-bars {
+  display: flex;
+
+  gap: 5px;
+}
+
+.strength-bar {
+  flex: 1;
+
+  height: 4px;
+
+  border-radius: 99px;
+
+  transition: background 0.25s;
+}
+
+.password-strength p {
+  margin: 4px 0 0;
+
+  font-size: 12.5px;
+
+  font-weight: 600;
+}
+
+/* =========================
+   TERMS
+========================= */
+
+.terms-label {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  cursor: pointer;
+
+  font-size: 13.5px;
+
+  color: #475569;
+
+  font-weight: 500;
+
+  line-height: 1.5;
+}
+
+.terms-label input {
+  margin-top: 2px;
+
+  flex-shrink: 0;
+}
+
+.terms-link {
+  color: #0369a1;
+
+  font-weight: 700;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  text-align: center;
+
+  font-size: 12.5px;
+
+  color: #94a3b8;
+
+  margin: 24px 0 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 24px 16px;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .pawgo-logo-container {
+    margin-bottom: 24px;
+  }
+
+  .auth-heading h1 {
+    font-size: 22px;
+  }
+
+  .signup-heading h1 {
+    font-size: 21px;
+  }
+
+  .remember-row {
+    gap: 10px;
+  }
+
+  .forgot-button {
+    font-size: 13px;
+  }
+}
