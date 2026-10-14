@@ -6,6 +6,8 @@ import homeRoutes from './routes/homeRoutes.js';
 import session from 'express-session';
 import loginRouter from './routes/loginRouter.js';
 import registerRoutes from './routes/registerRoutes.js';
+import checkAuthRouter from './routes/checkAuthRouter.js';
+
 
 dotenv.config();
 
@@ -42,6 +44,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/home', homeRoutes);
 app.use('/api/login', loginRouter);
 app.use('/api/register', registerRoutes);
+app.use('/api/check-auth', checkAuthRouter);
 
 const startServer = async () => {
   try {

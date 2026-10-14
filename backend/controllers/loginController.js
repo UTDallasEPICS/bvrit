@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import userRegistrationModel from "../models/registrationModel.js";
 
-export const login = async (req, res) => {
+export const login = async (req,res) => {
     try {
         const { email, password } = req.body;
 
