@@ -1,0 +1,224 @@
+/* ==========================================================
+   Assistant page. Every selector starts with .pfa-chat, so
+   nothing here can leak into the rest of the site.
+   Sections: 1 Tokens  2 Layout  3 Header  4 Messages
+             5 Sources  6 Typing  7 Composer  8 Mobile
+   ========================================================== */
+
+/* 1. Tokens ------------------------------------------------ */
+.pfa-chat {
+  --blue: #1c8fd0;
+  --blue-deep: #0e6ba8;
+  --blue-wash: #e8f4fb;
+  --ink: #101418;
+  --soft: #5a6672;
+  --paper: #ffffff;
+  --bg: #f3f6f9;
+  --line: #dde4ea;
+  --danger-bg: #fdecec;
+  --danger-line: #f3b9b9;
+  --danger-ink: #8a1c1c;
+}
+
+/* 2. Layout (fills the parent's height) -------------------- */
+.pfa-chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 480px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", system-ui, Arial, sans-serif;
+  font-size: 14px;
+}
+.pfa-chat,
+.pfa-chat *,
+.pfa-chat *::before,
+.pfa-chat *::after { box-sizing: border-box; }
+.pfa-chat h1,
+.pfa-chat h3,
+.pfa-chat p,
+.pfa-chat ul { margin: 0; padding: 0; }
+
+/* 3. Header ------------------------------------------------ */
+.pfa-head {
+  padding: 20px 36px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.pfa-head h1 { font-size: 20px; letter-spacing: -0.02em; }
+.pfa-head p { margin-top: 3px; font-size: 13px; color: var(--soft); }
+
+/* 4. Messages ---------------------------------------------- */
+.pfa-thread {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px 36px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pfa-row { display: flex; gap: 12px; max-width: 780px; }
+.pfa-row.pfa-user { align-self: flex-end; }
+
+.pfa-avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(150deg, #3aa9e4, var(--blue-deep));
+}
+.pfa-avatar svg { width: 18px; height: 18px; }
+
+.pfa-bubble {
+  min-width: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+  background: var(--paper);
+  font-size: 14.5px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.pfa-bubble p + p,
+.pfa-bubble p + ul,
+.pfa-bubble ul + p { margin-top: 8px; }
+.pfa-bubble ul { margin: 8px 0 8px 20px; }
+.pfa-bubble li { margin-bottom: 4px; }
+.pfa-bubble sup { margin-left: 1px; font-size: 11px; font-weight: 600; color: var(--blue-deep); }
+
+.pfa-user .pfa-bubble {
+  border-color: var(--blue);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 4px;
+  background: var(--blue);
+  color: #fff;
+  white-space: pre-wrap;
+}
+
+.pfa-bubble.pfa-error {
+  border-color: var(--danger-line);
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+}
+.pfa-retry {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid var(--danger-line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--danger-ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 5. Sources ----------------------------------------------- */
+.pfa-sources { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.pfa-sources h3 { margin-bottom: 8px; font-size: 12.5px; font-weight: 600; color: var(--soft); }
+.pfa-sources a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--ink);
+  text-decoration: none;
+}
+.pfa-sources a:hover { background: var(--blue-wash); }
+.pfa-sources a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.pfa-sources a svg { width: 14px; height: 14px; margin-left: auto; flex-shrink: 0; color: var(--soft); }
+.pfa-num {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: var(--blue-wash);
+  color: var(--blue-deep);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.pfa-src-text { min-width: 0; }
+.pfa-sources b { display: block; font-size: 13px; font-weight: 600; }
+.pfa-sources small {
+  display: block;
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--blue-deep);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 6. Typing indicator -------------------------------------- */
+.pfa-typing { display: flex; align-items: center; gap: 5px; padding: 16px 18px; }
+.pfa-typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9db4c4;
+  animation: pfa-blink 1.2s infinite ease-in-out;
+}
+.pfa-typing span:nth-child(2) { animation-delay: 0.15s; }
+.pfa-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pfa-blink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .pfa-typing span { animation: none; opacity: 0.6; }
+}
+
+/* 7. Composer ---------------------------------------------- */
+.pfa-composer { padding: 12px 36px 20px; }
+.pfa-box {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 8px 8px 8px 20px;
+  border: 1.5px solid var(--blue);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 4px 18px rgba(28, 143, 208, 0.12);
+}
+.pfa-box:focus-within { box-shadow: 0 0 0 3px rgba(28, 143, 208, 0.25); }
+.pfa-box textarea {
+  flex: 1;
+  max-height: 140px;
+  padding: 9px 0;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.pfa-send {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 12px;
+  background: var(--blue);
+  color: #fff;
+  cursor: pointer;
+}
+.pfa-send:disabled { background: #b8d9ec; cursor: not-allowed; }
+.pfa-send svg { width: 18px; height: 18px; }
+.pfa-fine { margin-top: 10px; text-align: center; font-size: 11.5px; color: var(--soft); }
+
+/* 8. Mobile ------------------------------------------------ */
+@media (max-width: 640px) {
+  .pfa-head,
+  .pfa-composer { padding-left: 16px; padding-right: 16px; }
+  .pfa-thread { padding: 20px 16px 8px; }
+}
