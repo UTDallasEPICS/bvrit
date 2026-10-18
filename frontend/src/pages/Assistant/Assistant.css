@@ -24,8 +24,11 @@
 .pfa-chat {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 480px;
+  height: calc(100dvh - 82px);
+  min-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
   background: var(--bg);
   color: var(--ink);
   font-family: Inter, "Segoe UI", system-ui, Arial, sans-serif;
@@ -42,6 +45,7 @@
 
 /* 3. Header ------------------------------------------------ */
 .pfa-head {
+  flex-shrink: 0;
   padding: 20px 36px;
   background: var(--paper);
   border-bottom: 1px solid var(--line);
@@ -175,7 +179,12 @@
 }
 
 /* 7. Composer ---------------------------------------------- */
-.pfa-composer { padding: 12px 36px 20px; }
+.pfa-composer {
+  flex-shrink: 0;
+  padding: 12px 36px 20px;
+  background: var (--bg);
+}
+
 .pfa-box {
   display: flex;
   align-items: flex-end;
