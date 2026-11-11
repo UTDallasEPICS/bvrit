@@ -7,8 +7,7 @@ import session from 'express-session';
 import loginRouter from './routes/loginRouter.js';
 import registerRoutes from './routes/registerRoutes.js';
 import checkAuthRouter from './routes/checkAuthRouter.js';
-
-
+import dataRouter from './routes/dataRouter.js'
 dotenv.config();
 
 const app = express();
@@ -45,7 +44,7 @@ app.use('/api/home', homeRoutes);
 app.use('/api/login', loginRouter);
 app.use('/api/register', registerRoutes);
 app.use('/api/check-auth', checkAuthRouter);
-
+app.use('/api/petdata', dataRouter);
 const startServer = async () => {
   try {
     await connectDB();

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import connectDB from '../config/db'
+import connectDB from '../config/db.js'
 
 const petAdoptionData = new mongoose.Schema({
     name: {
@@ -11,7 +11,7 @@ const petAdoptionData = new mongoose.Schema({
         type: Number,
         required: true
     },
-    imageURL: {
+    imagePath: {
         type: String,
         required: true
     },
@@ -22,5 +22,5 @@ const petAdoptionData = new mongoose.Schema({
 }, {
     timestamps: true
 })
-const petAdoptionModel = mongoose.model('pets', petAdoptionData)
+const petAdoptionModel = mongoose.model('PetAdoption', petAdoptionData, 'petsForAdoption')
 export default petAdoptionModel
