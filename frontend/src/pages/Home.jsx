@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.jsx';
 import FeatureCard from '../components/FeatureCard.jsx';
 import PetCard from '../components/PetCard.jsx';
 import Footer from '../components/Footer.jsx';
-import { getHomeData } from '../services/homeService.js';
+import axios from 'axios';
 
 const features = [
   {
@@ -62,8 +62,15 @@ function Home() {
 
   useEffect(() => {
     const loadHomeData = async () => {
-      const data = await getHomeData();
-      setHomeData(data);
+      try {
+        const response = await axios.get(
+          'http://localhost:5001/api/home',
+          { withCredentials: true }
+        );
+        setHomeData(response.data.data);
+      } catch (error) {
+        console.error('Home data fetch error:', error);
+      }
     };
 
     loadHomeData();
@@ -255,4 +262,3 @@ function Home() {
 }
 
 export default Home;
-

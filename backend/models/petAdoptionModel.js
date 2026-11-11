@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import connectDB from '../config/db.js'
 
 const petAdoptionData = new mongoose.Schema({
     name: {
@@ -8,7 +7,7 @@ const petAdoptionData = new mongoose.Schema({
 
     },
     age: {
-        type: Number,
+        type: String,
         required: true
     },
     imagePath: {
