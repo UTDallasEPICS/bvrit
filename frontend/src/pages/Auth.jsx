@@ -362,6 +362,15 @@ function SignupPage({ onSwitch }) {
     event.preventDefault();
     setError("");
     setMessage("");
+    if (password !== confirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (!agreed) {
+      setError("Please agree to the Terms of Service and Privacy Policy.");
+      return;
+    }
 
     try {
       const response = await axios.post(
@@ -369,7 +378,9 @@ function SignupPage({ onSwitch }) {
         { fname: name, email, password },
         { withCredentials: true }
       );
-      setMessage(response.data.message || "Registration successful.");
+      if (response.data.success) {
+        onSwitch();
+      }
     } catch (requestError) {
       console.error("Registration request error:", requestError);
       setError(

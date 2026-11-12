@@ -1,17 +1,23 @@
 import bcrypt from "bcrypt";
 import userRegistrationModel from "../models/registrationModel.js";
 
-export const login = async (req,res) => {
+export const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body || {};
 
-        if (!email || !password) {
+        if (
+            typeof email !== "string" ||
+            typeof password !== "string" ||
+            !email.trim() ||
+            !password
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Email and password are required"
             });
         }
-        const user = await userRegistrationModel.findOne({ email });
+        const normalizedEmail = email.trim().toLowerCase();
+        const user = await userRegistrationModel.findOne({ email: normalizedEmail });
         if (!user) {
             return res.status(400).json({
                 success: false,
