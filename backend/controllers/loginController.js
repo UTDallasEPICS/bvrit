@@ -49,3 +49,34 @@ export const login = async (req, res) => {
         });
     }
 };
+
+export const logout = (req, res) => {
+    if (!req.session) {
+        return res.status(401).json({
+            success: false,
+            message: "No active session"
+        });
+    }
+
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.status(500).json({
+                success: false,
+                message: "Unable to log out"
+            });
+        }
+
+        const isProduction = process.env.NODE_ENV === "production";
+        res.clearCookie("connect.sid", {
+            path: "/",
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax"
+        });
+        return res.status(200).json({
+            success: true,
+            message: "User logged out successfully"
+        });
+    });
+};

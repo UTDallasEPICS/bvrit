@@ -84,7 +84,7 @@ function Adoption() {
             {/* Error */}
             {error && (
                 <div className="adoption-error" role="alert">
-                    Failed to fetch pets: {error}
+                    Login to view pets available for adoption.
                 </div>
             )}
 
