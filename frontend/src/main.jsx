@@ -12,6 +12,7 @@ import "./index.css";
 import Home from "./pages/Home";
 import Assistant from "./pages/Assistant";
 import Auth from "./pages/Auth";
+import PetRequest from "./pages/petRequest";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "assistant",
         element: <Assistant />,
+      },
+      {
+         path: 'adopt/:petId',
+         element: <PetRequest />,
       }
     ],
   },

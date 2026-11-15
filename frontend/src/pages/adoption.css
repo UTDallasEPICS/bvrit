@@ -72,22 +72,18 @@
 
 /* Pet Image */
 
-.pet-image-container {
+.adoption-page .pet-image-container {
     position: relative;
-    height: 250px;
+    height: 340px;
     overflow: hidden;
     background-color: #e0f2fe;
 }
 
-.pet-image {
+.adoption-page .pet-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.pet-card:hover .pet-image {
-    transform: scale(1.05);
+    object-fit: contain;
+    object-position: center;
 }
 
 .pet-image-placeholder {
@@ -303,7 +299,20 @@
         gap: 22px;
     }
 
-    .pet-image-container {
-        height: 230px;
+    .adoption-page .pet-image-container {
+        height: 280px;
     }
+
+
+}
+.adopt-pet-button{
+    color:#0369a1;
+    font-size: 15px;
+    background-color: #e0f2fe;
+    padding: 10px 15px;
+    border-radius: 8px;
+    height: 40px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
 }

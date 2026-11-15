@@ -11,6 +11,7 @@ import loginRouter from './routes/loginRouter.js';
 import registerRoutes from './routes/registerRoutes.js';
 import checkAuthRouter from './routes/checkAuthRouter.js';
 import dataRouter from './routes/dataRouter.js';
+import adoptionRouter from './routes/adoptionRouter.js';
 import { isAuthenticated } from './middleware/isAuthenticated.js';
 const backendDir = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: resolve(backendDir, '.env') });
@@ -94,6 +95,7 @@ const startServer = async () => {
     app.use('/api/register', registerRoutes);
     app.use('/api/check-auth', checkAuthRouter);
     app.use('/api/petdata',isAuthenticated, dataRouter);
+    app.use('/api/adoption', isAuthenticated, adoptionRouter);
 
     await new Promise((resolve, reject) => {
       const server = app.listen(PORT, () => {

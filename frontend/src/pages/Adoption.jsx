@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./Adoption.css";
+import "./adoption.css";
+import { Link } from "react-router-dom";
 
 const getPetImageUrl = (imagePath) => {
     if (!imagePath) return "";
@@ -151,11 +152,11 @@ function Adoption() {
                                     </span>
                                 </div>
 
-                                <button className="meet-pet-button">
-                                    Meet {p.name}
+                                <Link className="adopt-pet-button" to={`/adopt/${p._id}`}>
+                                    Adopt {p.name}
                                     <span>→</span>
-                                </button>
-
+                                </Link>
+                                        
                             </div>
                         </article>
                     ))}
