@@ -250,7 +250,12 @@ function LoginPage({ onSwitch }) {
         { withCredentials: true }
       );
       if (response.data.success) {
-        navigate("/");
+        if (response.data.isAdmin) {
+          navigate("/admin")
+        }
+        else {
+          navigate("/");
+        }
       } else {
         setError(response.data.message || "Unable to log in.");
       }

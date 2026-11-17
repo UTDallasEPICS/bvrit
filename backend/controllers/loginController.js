@@ -35,10 +35,18 @@ export const login = async (req, res) => {
             id: user._id,
             email: user.email
         };
-
+        req.isAdmin = req.session.user.email === process.env.ADMIN_EMAIL; 
+        if(req.isAdmin){
+            return res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            isAdmin:true
+        });
+        }
         return res.status(200).json({
             success: true,
-            message: "User logged in successfully"
+            message: "User logged in successfully",
+            isAdmin:false
         });
 
     } catch (err) {
