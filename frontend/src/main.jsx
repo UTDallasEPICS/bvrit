@@ -14,6 +14,9 @@ import Assistant from "./pages/Assistant";
 import Auth from "./pages/Auth";
 import PetRequest from "./pages/petRequest";
 import Admin from "./pages/Admin";
+import AdminHome from "./pages/AdminHome";
+import AdoptionRequests from "./pages/AdoptionRequests";
+import AddPet from "./pages/AddPet";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
       {
         path:'admin',
         element:<Admin/>
+      },
+      {
+        path:'adminhome',
+        element:<AdminHome/>
+      },
+      {
+        path:'adoptionrequests',
+        element:<AdoptionRequests/>
+      },
+      {
+        path:'addpet',
+        element:<AddPet/>
       }
     ],
   },

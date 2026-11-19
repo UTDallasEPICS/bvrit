@@ -1,32 +1,50 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import AdminDashboard from "./AdminDashboard";
+
 function Admin() {
-    const [isAdmin, setAdmin] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
 
-    useEffect(() => {
-        const fetchAdmin = async () => {
-            try {
-                const { data } = await axios.get(
-                    "http://localhost:5001/api/check-auth",
-                    { withCredentials: true }
-                );
-                setAdmin(data.isLoggedIn && data.isAdmin);
-            } catch (error) {
-                console.error("Admin check failed:", error);
-                setAdmin(false);
-            }
-        };
+  useEffect(() => {
+    let isMounted = true;
 
-        fetchAdmin();
-    }, []);
-    return (
-        <>
-            {isAdmin && <h1>This is admin page</h1>}
-            {!isAdmin && <h1>Not Admin Account</h1>}
+    const fetchAdmin = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:5001/api/check-auth",
+          { withCredentials: true }
+        );
 
-        </>
-    )
+        if (typeof data.isLoggedIn !== "boolean") {
+          throw new Error("Authentication check returned an invalid response.");
+        }
 
+        if (isMounted) {
+          setIsAdmin(data.isLoggedIn && data.isAdmin === true);
+        }
+      } catch (error) {
+        console.error("Admin check failed:", error);
+        if (isMounted) {
+          setIsAdmin(false);
+        }
+      }
+    };
+
+    fetchAdmin();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (isAdmin === null) {
+    return <p>Checking admin access...</p>;
+  }
+
+  if (!isAdmin) {
+    return <h2>Access Denied</h2>;
+  }
+
+  return <AdminDashboard />;
 }
+
 export default Admin;

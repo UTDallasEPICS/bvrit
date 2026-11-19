@@ -128,7 +128,7 @@ function PetRequest() {
   };
 
   if (loading) {
-    return <p className="pet-request-message">Loading pet details...</p>;
+    return <p className="pet-request-message">Loading pet AdoptionForm...</p>;
   }
 
   if (error) {
