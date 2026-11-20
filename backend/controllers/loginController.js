@@ -1,17 +1,23 @@
 import bcrypt from "bcrypt";
 import userRegistrationModel from "../models/registrationModel.js";
 
-export const login = async (req,res) => {
+export const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body || {};
 
-        if (!email || !password) {
+        if (
+            typeof email !== "string" ||
+            typeof password !== "string" ||
+            !email.trim() ||
+            !password
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Email and password are required"
             });
         }
-        const user = await userRegistrationModel.findOne({ email });
+        const normalizedEmail = email.trim().toLowerCase();
+        const user = await userRegistrationModel.findOne({ email: normalizedEmail });
         if (!user) {
             return res.status(400).json({
                 success: false,
@@ -29,10 +35,18 @@ export const login = async (req,res) => {
             id: user._id,
             email: user.email
         };
-
+        const isAdmin = req.session.user.email === process.env.ADMIN_EMAIL; 
+        if(isAdmin){
+            return res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            isAdmin:true
+        });
+        }
         return res.status(200).json({
             success: true,
-            message: "User logged in successfully"
+            message: "User logged in successfully",
+            isAdmin:false
         });
 
     } catch (err) {
@@ -42,4 +56,35 @@ export const login = async (req,res) => {
             message: "Internal server error"
         });
     }
+};
+
+export const logout = (req, res) => {
+    if (!req.session) {
+        return res.status(401).json({
+            success: false,
+            message: "No active session"
+        });
+    }
+
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.status(500).json({
+                success: false,
+                message: "Unable to log out"
+            });
+        }
+
+        const isProduction = process.env.NODE_ENV === "production";
+        res.clearCookie("connect.sid", {
+            path: "/",
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax"
+        });
+        return res.status(200).json({
+            success: true,
+            message: "User logged out successfully"
+        });
+    });
 };

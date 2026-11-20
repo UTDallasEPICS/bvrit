@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../auth.css";
 
 function PawGoLogo() {
@@ -214,7 +216,7 @@ function Divider() {
 
 function PrimaryButton({ label }) {
   return (
-    <button className="primary-button">
+    <button className="primary-button" type="submit">
       {label}
     </button>
   );
@@ -222,7 +224,7 @@ function PrimaryButton({ label }) {
 
 function GoogleButton() {
   return (
-    <button className="google-button">
+    <button className="google-button" type="button">
       <GoogleIcon />
       Continue with Google
     </button>
@@ -230,10 +232,42 @@ function GoogleButton() {
 }
 
 function LoginPage({ onSwitch }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/api/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      if (response.data.success) {
+        if (response.data.isAdmin) {
+          navigate("/admin")
+        }
+        else {
+          navigate("/");
+        }
+      } else {
+        setError(response.data.message || "Unable to log in.");
+      }
+    } catch (requestError) {
+      console.error("Login request error:", requestError);
+      setError(
+        requestError.response?.data?.message ||
+        requestError.message ||
+        "Unable to log in."
+      );
+    }
+  };
 
   return (
     <>
@@ -245,7 +279,7 @@ function LoginPage({ onSwitch }) {
         </p>
       </div>
 
-      <div className="form-container">
+      <form className="form-container" onSubmit={handleSubmit}>
 
         <InputField
           label="Email Address"
@@ -286,12 +320,13 @@ function LoginPage({ onSwitch }) {
             <span>Remember me</span>
           </label>
 
-          <button className="forgot-button">
+          <button className="forgot-button" type="button">
             Forgot password?
           </button>
 
         </div>
 
+        {error && <p role="alert">{error}</p>}
         <PrimaryButton label="Login" />
 
         <Divider />
@@ -300,12 +335,12 @@ function LoginPage({ onSwitch }) {
 
         <p className="switch-text">
           Don't have an account?{" "}
-          <button onClick={onSwitch}>
+          <button type="button" onClick={onSwitch}>
             Sign up
           </button>
         </p>
 
-      </div>
+      </form>
     </>
   );
 }
@@ -323,8 +358,43 @@ function SignupPage({ onSwitch }) {
     useState(false);
 
   const [agreed, setAgreed] = useState(false);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const strength = getPasswordStrength(password);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setMessage("");
+    if (password !== confirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (!agreed) {
+      setError("Please agree to the Terms of Service and Privacy Policy.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/api/register",
+        { fname: name, email, password },
+        { withCredentials: true }
+      );
+      if (response.data.success) {
+        onSwitch();
+      }
+    } catch (requestError) {
+      console.error("Registration request error:", requestError);
+      setError(
+        requestError.response?.data?.message ||
+        requestError.message ||
+        "Unable to register."
+      );
+    }
+  };
 
   return (
     <>
@@ -336,7 +406,7 @@ function SignupPage({ onSwitch }) {
         </p>
       </div>
 
-      <div className="form-container">
+      <form className="form-container" onSubmit={handleSubmit}>
 
         <InputField
           label="Full Name"
@@ -444,6 +514,8 @@ function SignupPage({ onSwitch }) {
 
         </label>
 
+        {error && <p role="alert">{error}</p>}
+        {message && <p role="status">{message}</p>}
         <PrimaryButton label="Create Account" />
 
         <Divider />
@@ -452,12 +524,12 @@ function SignupPage({ onSwitch }) {
 
         <p className="switch-text">
           Already have an account?{" "}
-          <button onClick={onSwitch}>
+          <button type="button" onClick={onSwitch}>
             Login
           </button>
         </p>
 
-      </div>
+      </form>
     </>
   );
 }

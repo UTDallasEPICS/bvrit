@@ -1,4 +1,3 @@
-import connectDB from "../config/db";
 import mongoose from "mongoose";
 import userRegistrationModel from "./registrationModel";
 const userSchema = new mongoose.Schema({

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import connectDB from '../config/db'
 
 const petAdoptionData = new mongoose.Schema({
     name: {
@@ -8,10 +7,15 @@ const petAdoptionData = new mongoose.Schema({
 
     },
     age: {
-        type: Number,
+        type: String,
         required: true
     },
-    imageURL: {
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'],
+        default: undefined
+    },
+    imagePath: {
         type: String,
         required: true
     },
@@ -19,8 +23,13 @@ const petAdoptionData = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    adoptionStatus: {
+        type: String,
+        enum: ['Available', 'Adopted'],
+        default: 'Available'
+    },
 }, {
     timestamps: true
 })
-const petAdoptionModel = mongoose.model('pets', petAdoptionData)
+const petAdoptionModel = mongoose.model('PetAdoption', petAdoptionData, 'petsForAdoption')
 export default petAdoptionModel

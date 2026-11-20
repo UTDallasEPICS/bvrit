@@ -1,18 +1,66 @@
 
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaCog } from "react-icons/fa";
-
+import axios from "axios";
 import logo from "../assets/pawgoLogo.jpeg";
-
-
-
-
 import "./navbar.css";
-
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let isMounted = true;
+    const checkAuthentication = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5001/api/check-auth",
+          { withCredentials: true }
+        );
+        if (typeof response.data.isLoggedIn !== "boolean") {
+          throw new Error("Authentication check returned an invalid response.");
+        }
+        if (isMounted) {
+          setIsLoggedIn(response.data.isLoggedIn);
+        }
+      } catch (error) {
+        console.error("Authentication check failed:", error);
+        if (isMounted) {
+          setIsLoggedIn(false);
+        }
+      }
+    };
+
+    checkAuthentication();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/api/login/logout",
+        {},
+        { withCredentials: true }
+      );
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Unable to log out.");
+      }
+      setIsLoggedIn(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout request failed:", error);
+      window.alert(
+        error.response?.data?.message || error.message || "Unable to log out."
+      );
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg py-3">
       <div className="container">
@@ -97,22 +145,36 @@ function Navbar() {
               </ul>
             </li>
 
-            {/* Login / Sign Up */}
-            <li className="nav-auth-buttons">
-              <Link
-                className="nav-auth-btn nav-login-btn"
-                to="/login"
-              >
-                Login
-              </Link>
+            {/* Show account actions only after the session check completes. */}
+            {isLoggedIn !== null && (
+              <li className="nav-auth-buttons">
+                {isLoggedIn ? (
+                  <button
+                    className="nav-auth-btn nav-signup-btn"
+                    type="button"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <>
+                    <Link
+                      className="nav-auth-btn nav-login-btn"
+                      to="/login"
+                    >
+                      Login
+                    </Link>
 
-              <Link
-                className="nav-auth-btn nav-signup-btn"
-                to="/login?mode=signup"
-              >
-                Sign Up
-              </Link>
-            </li>
+                    <Link
+                      className="nav-auth-btn nav-signup-btn"
+                      to="/login?mode=signup"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+              </li>
+            )}
 
           </ul>
 
@@ -123,6 +185,4 @@ function Navbar() {
 }
 
 export default Navbar;
-
-
 

@@ -6,9 +6,6 @@ export const isAuthenticated = (req, res, next) => {
                 message: "User not logged in"
             });
         }
-        req.isAuthenticated = true;
-        req.isAdmin = req.session.user.email === process.env.ADMIN_EMAIL;
-
         return next();
     } catch (err) {
         return res.status(500).json({
