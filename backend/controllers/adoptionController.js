@@ -75,6 +75,12 @@ export const submitApplication = async (req, res) => {
         message: "Pet not found",
       });
     }
+    if (pet.adoptionStatus === "Adopted") {
+      return res.status(409).json({
+        success: false,
+        message: "This pet is no longer available for adoption",
+      });
+    }
 
     const application = new adoptionApplicationModel({
       ...data,

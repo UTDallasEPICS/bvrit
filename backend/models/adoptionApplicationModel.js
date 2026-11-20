@@ -40,6 +40,12 @@ const adoptionApplicationSchema = new mongoose.Schema(
     },
     monthlyBudget: { type: String, enum: yesNo, required: true },
     agreeToTerms: { type: Boolean, required: true, validate: (value) => value },
+    status: {
+      type: String,
+      enum: ["Pending", "Approved", "Rejected"],
+      default: "Pending",
+    },
+    reviewedAt: { type: Date },
   },
   { timestamps: true }
 );

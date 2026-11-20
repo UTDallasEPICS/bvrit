@@ -1,25 +1,16 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import AdminNavbar from "./components/adminNavbar";
 function App() {
   const location = useLocation();
 
   const hideNavbar = location.pathname === "/login";
-  const adminNavbarPaths = [
-    "/admin",
-    "/adminhome",
-    "/adoptionrequests",
-    "/addpet",
-  ];
-  const showNavbarAdmin = adminNavbarPaths.includes(location.pathname);
+  const isAdminRoute =
+    location.pathname.startsWith("/admin") ||
+    ["/adminhome", "/adoptionrequests", "/addpet"].includes(location.pathname);
 
   return (
     <>
-      {showNavbarAdmin ? (
-        <AdminNavbar />
-      ) : (
-        !hideNavbar && <Navbar />
-      )}
+      {!hideNavbar && !isAdminRoute && <Navbar />}
       <Outlet />
     </>
   );

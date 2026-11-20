@@ -10,6 +10,11 @@ const petAdoptionData = new mongoose.Schema({
         type: String,
         required: true
     },
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'],
+        default: undefined
+    },
     imagePath: {
         type: String,
         required: true
@@ -17,6 +22,11 @@ const petAdoptionData = new mongoose.Schema({
     vaccinationStatus: {
         type: Boolean,
         default: false
+    },
+    adoptionStatus: {
+        type: String,
+        enum: ['Available', 'Adopted'],
+        default: 'Available'
     },
 }, {
     timestamps: true

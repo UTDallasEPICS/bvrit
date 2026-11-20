@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AdminDashboard from "./AdminDashboard";
+import { Outlet } from "react-router-dom";
+import AdminNavbar from "../components/adminNavbar";
 
-function Admin() {
+function Admin({ children }) {
   const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
@@ -44,7 +45,12 @@ function Admin() {
     return <h2>Access Denied</h2>;
   }
 
-  return <AdminDashboard />;
+  return (
+    <>
+      <AdminNavbar />
+      {children || <Outlet />}
+    </>
+  );
 }
 
 export default Admin;
