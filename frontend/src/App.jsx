@@ -4,9 +4,7 @@ function App() {
   const location = useLocation();
 
   const hideNavbar = location.pathname === "/login";
-  const isAdminRoute =
-    location.pathname.startsWith("/admin") ||
-    ["/adminhome", "/adoptionrequests", "/addpet"].includes(location.pathname);
+  const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
     <>

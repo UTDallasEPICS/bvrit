@@ -64,30 +64,6 @@ const router = createBrowserRouter([
             element: <AdoptionRequests />,
           },
         ],
-      },
-      {
-        path: "adminhome",
-        element: (
-          <Admin>
-            <AdminDashboard />
-          </Admin>
-        ),
-      },
-      {
-        path: "adoptionrequests",
-        element: (
-          <Admin>
-            <AdoptionRequests />
-          </Admin>
-        ),
-      },
-      {
-        path: "addpet",
-        element: (
-          <Admin>
-            <AddPet />
-          </Admin>
-        ),
       }
     ],
   },
